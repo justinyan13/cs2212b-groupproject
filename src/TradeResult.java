@@ -13,8 +13,8 @@ public class TradeResult {
     private int quantityOfCoins;
     private double price;
     private String date;
-    private String coin;
-    private String name;
+    private String coin; // Coin name
+    //private String name;
     private String strategyName;
 
 
@@ -25,11 +25,14 @@ public class TradeResult {
      * @param action
      * @param quantity
      */
-    public TradeResult(TradingBroker person, Boolean success, String action, int quantity) {
+    public TradeResult(TradingBroker person, Boolean success, String action, int quantity,String date, String coin, String strategyName) {
         this.broker = person;
         this.success = success;
         this.action = action;
         this.quantityOfCoins = quantity;
+        this.date = date;
+        this.coin = coin;
+        this.strategyName = strategyName;
     }
 
     /**

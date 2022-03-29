@@ -59,6 +59,7 @@ public class TradingSystem {
         }
     }
 
+
     public void editTradingBroker(String name,  String strategyName, String[] coinList){
 
         Coin[] thirdList = new Coin[coinList.length];
