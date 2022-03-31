@@ -12,11 +12,11 @@ public class TradingSystem {
     private static TradingSystem instance = null;
     private ArrayList<TradingBroker> listOfBrokers = new ArrayList<TradingBroker>();
     private ArrayList<TradeResult> listOfResults = new ArrayList<TradeResult>();
+    private TradingBrokerFactory factory = TradingBrokerFactory.getInstance();
+    private TradingStrategy strategy = TradingStrategy.getInstance();
 
 
     private TradingSystem() {
-        this.listOfBrokers = null;
-        this.listOfResults = null;
     }
 
     public static TradingSystem getInstance() {
@@ -38,10 +38,12 @@ public class TradingSystem {
         Coin[] secondList = new Coin[coinList.length];
 
         for (int i = 0; i < coinList.length; i++) {
-            secondList[i] = new Coin(name, 5.45); // Create new coin object with given paramaters
+            secondList[i] = new Coin(coinList[i], 5.45); // Create new coin object with given paramaters
             //TODO Change 5.45 default price coin value
         }
-        listOfBrokers.add(new TradingBroker(name, strategyName, secondList));
+
+
+        listOfBrokers.add((TradingBroker)this.factory.createBroker(name, strategyName, secondList));
     }
 
     /**
@@ -79,14 +81,20 @@ public class TradingSystem {
 
 
     public void generateTradeResults(){
-        //Iterate each elem of broker list
-        //Check if neccessary strategy coins are also known by broker
-            //Indicate fail if unmet criteria
-        //Use infogetter to acquire CoinGecko prices
-        //Utilize prices to execute the strategy
-            //Return the buy/sell/no trade path
-            //Provide the details of the trade[quantity, coin name, etc]
-                //Add TradeREsult object to list
+        for(TradingBroker iterator : this.listOfBrokers){
+            if(iterator.getStrategyName().equals("Strategy A")){
+                this.listOfResults.add(strategy.strategyA(iterator));
+            }
+            else if(iterator.getStrategyName().equals("Strategy B")){
+                this.listOfResults.add(strategy.strategyB(iterator));
+            }
+            else if(iterator.getStrategyName().equals("Strategy C")){
+                this.listOfResults.add(strategy.strategyC(iterator));
+            }
+            else{
+                this.listOfResults.add(strategy.strategyD(iterator));
+            }
+        }
     }
 
     public ArrayList<TradingBroker> getListOfBrokers() {
@@ -96,9 +104,5 @@ public class TradingSystem {
     public ArrayList<TradeResult>  getListOfResults() {
         return listOfResults;
     }
-
-
-
-
 
 }

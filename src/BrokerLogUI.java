@@ -147,6 +147,7 @@ public class BrokerLogUI extends JFrame implements ActionListener {
 		}
 		
 		if (e.getSource() == performTradeButton) {
+
 			
 			allData = new String[model.getRowCount()][3];
 			
@@ -155,6 +156,30 @@ public class BrokerLogUI extends JFrame implements ActionListener {
 					allData[i][j] = (String) model.getValueAt(i, j);
 				}
 			}
+
+			TradingSystem tradingSystem = TradingSystem.getInstance();
+			for (int i = 0; i < model.getRowCount(); i++) {
+				String name = allData[i][0];
+				String coins = allData[i][1];
+				coins = coins.replaceAll(" ", "");
+				String[] coinList = coins.split(",");
+				String stratName = allData[i][2];
+				tradingSystem.createTradingBroker(name,  stratName, coinList);
+			}
+
+//			ArrayList<TradingBroker> test = tradingSystem.getListOfBrokers();
+//			for (TradingBroker brokerIterator: test) {
+//				System.out.print(brokerIterator.getName() + " ");
+//				System.out.print(brokerIterator.getStrategyName() + " ");
+//				for(Coin iterator: brokerIterator.getCoinList()){
+//					System.out.print(iterator.getCoinName() + " ");
+//				}
+//				System.out.println();
+//			}
+
+
+
+
 			
 			TradeLogUI tradeLog = TradeLogUI.getInstance();
 			tradeLog.display();

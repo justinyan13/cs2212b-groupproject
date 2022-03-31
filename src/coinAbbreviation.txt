@@ -1,0 +1,11 @@
+SHIB shiba-inu
+XRP ripple
+USDC usd-coin
+LUNA terra-luna
+AVAX avalanche-2
+DOT polkadot
+CRO crypto-com-chain
+DAI dai
+BTC bitcoin
+ETH ethereum
+SQUID squid-game
